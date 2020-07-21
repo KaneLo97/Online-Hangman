@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>CMPT 213 Online Hangman Game</title>
+</head>
+<body>
+
+<p>Welcome Kane</p>
+<form class="button" th:action="@{/game}" method="POST">
+    <input type="submit" value="Game"/>
+</form>
+</body>
+</html>
