@@ -1,0 +1,30 @@
+.container {
+    margin-left: 2em;
+}
+
+.rules_container{
+    background-color: #DCDCDC;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    margin-bottom: 2em;
+}
+
+h2 {
+    text-align: center;
+}
+
+ul li {
+    padding: 0.5em;
+    margin-left: 2em;
+}
+
+.start_game_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type=submit] {
+    padding: 1em;
+    font-size: 1em;
+}

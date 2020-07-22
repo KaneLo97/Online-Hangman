@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <link th:href="@{/styles/game.css}" rel="stylesheet" />
     <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
-    <h1 th:text="'Game ' + ${game.id} + ' Page'"> header message</h1>
-    <p th:text="'Status: ' + ${game.status}">game status</p>
-    <!-- for testing -->
-    <p th:text="${game.wordToBeGuessed}"></p>
-    <p> Progress: <span th:each="s: ${list}" th:text =${s}> </span></p>
-    <p th:text="'You have made ' + ${game.totalNumberOfGuesses} + ' ,out of which you have made ' + ${game.numberOfIncorrectGuesses} + ' incorrect guess(es).'"></p>
-    <form action="#" th:action="@{/game}" th:object="${game}" method="POST">
-        <label>Your guess</label>
-        <input type="text" th:field="*{characterEntered}"/>
-        <input type="submit" value="Make a guess"/>
-    </form>
-    <br>
+    <p><h1 class = "header"> HANGMAN GAME</h1></p>
+    <div class = "container">
+        <h1 th:text = "'Game ' + ${game.id} + ' Page'"> header message</h1>
+        <p th:text = "'Status: ' + ${game.status}">game status</p>
+        <!-- for testing -->
+        <p th:text="${game.wordToBeGuessed}"></p>
+        <p> Progress: <span th:each="s: ${list}" th:text =${s}> </span></p>
+        <p th:text="'You have made ' + ${game.totalNumberOfGuesses} + ' ,out of which you have made ' + ${game.numberOfIncorrectGuesses} + ' incorrect guess(es).'"></p>
+        <form action="#" th:action="@{/game}" th:object="${game}" method="POST">
+            <label>Your guess</label>
+            <input type="text" th:field="*{characterEntered}"/>
+            <input type="submit" value="Make a guess"/>
+        </form>
+        <br>
 
-    <a th:href="@{/welcome}" > Back to Welcome page </a>
+        <a th:href="@{/welcome}" > Back to Welcome page </a>
+    </div>
 
 </body>
 </html>
