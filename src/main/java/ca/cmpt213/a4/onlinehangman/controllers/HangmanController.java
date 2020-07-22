@@ -43,7 +43,7 @@ public class HangmanController {
         // create a new game whenever player is on the welcome page
         game = new Game();
         game.setStatus("Active");
-        game.setWordToBeGuessed("Hello");
+        game.setRandomWordToBeGuessed();
 
         // take the user to welcome.html
         return "welcome";

@@ -1,7 +1,10 @@
 package ca.cmpt213.a4.onlinehangman.model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
     private long id;
@@ -111,6 +114,26 @@ public class Game {
         } else {
             this.status = "Won";
         }
+    }
+
+    public void setRandomWordToBeGuessed() {
+        try{
+            FileReader wordFile = new FileReader("./src/commonWords.txt");
+            BufferedReader reader = new BufferedReader(wordFile);
+            String wordLine = reader.readLine();
+            List<String> wordList = new ArrayList<String>();
+            while(wordLine != null) {
+                wordList.add(wordLine);
+                wordLine = reader.readLine();
+            }
+
+            Random rand = new Random();
+            this.wordToBeGuessed = wordList.get(rand.nextInt(wordList.size()));
+
+        } catch (Exception e) {
+           System.out.println("It is not possible to read the commonWords.txt.");
+        }
+
     }
 
 }
