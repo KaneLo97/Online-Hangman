@@ -11,7 +11,7 @@ public class Game {
     private int totalNumberOfGuesses;
     private String characterEntered;
     private List<String> revealedList = new ArrayList<>();
-    private static final int MAX_NUMBER_INCORRECT_GUESSES = 7;
+    private static final int MAX_NUMBER_INCORRECT_GUESSES = 1;
 
     public Game() {
         this.id = 0;
@@ -103,11 +103,13 @@ public class Game {
         return revealedList ;
     }
 
-    public boolean isGameLost() {
+    public void getUpdatedGameStatus() {
         if (this.revealedList.contains("_") && this.numberOfIncorrectGuesses > MAX_NUMBER_INCORRECT_GUESSES) {
-            return true;
+            this.status = "Lost";
+        } else if (this.revealedList.contains("_")) {
+            this.status = "Active";
         } else {
-            return false;
+            this.status = "Won";
         }
     }
 

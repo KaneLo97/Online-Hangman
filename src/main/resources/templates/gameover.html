@@ -6,10 +6,9 @@
     <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
+<h1 th:text="'Game ' + ${game.status}"> header message</h1>
 
-<p>Welcome Kane</p>
-<form class="button" th:action="@{/game}" method="post">
-    <input type="submit" value="Game"/>
-</form>
+<a th:href="@{/welcome}" > Back to Welcome page </a>
+
 </body>
 </html>

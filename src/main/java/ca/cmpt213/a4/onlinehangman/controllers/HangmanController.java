@@ -67,6 +67,12 @@ public class HangmanController {
         model.addAttribute("game", game);
         wordRevealed = game.getCharacterList(characterEntered);
         model.addAttribute("list", wordRevealed);
+        game.getUpdatedGameStatus();
+
+        if (game.getStatus() == "Lost" || game.getStatus() == "Won") {
+            return "gameover";
+        }
+
         return "game";
     }
 
