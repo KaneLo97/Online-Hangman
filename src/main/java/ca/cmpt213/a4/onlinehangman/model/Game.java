@@ -82,7 +82,7 @@ public class Game {
     }
 
     private boolean isCorrectCharacter(String characterEntered) {
-        if (wordToBeGuessed.indexOf(characterEntered.charAt(0)) != -1) {
+        if (!characterEntered.equals("") && wordToBeGuessed.indexOf(characterEntered.charAt(0)) != -1) {
             return true;
         } else {
             return false;
@@ -97,10 +97,12 @@ public class Game {
     }
 
     public List<String> getCharacterList(String characterEntered) {
-        for(int i = 0; i <  wordToBeGuessed.length(); i++) {
-            if (wordToBeGuessed.charAt(i) == characterEntered.charAt(0)) {
-                revealedList.remove(i * 2);
-                revealedList.add(i * 2, characterEntered);
+        if (!characterEntered.equals("")) {
+            for (int i = 0; i < wordToBeGuessed.length(); i++) {
+                if (wordToBeGuessed.charAt(i) == characterEntered.charAt(0)) {
+                    revealedList.remove(i * 2);
+                    revealedList.add(i * 2, characterEntered);
+                }
             }
         }
         return revealedList ;

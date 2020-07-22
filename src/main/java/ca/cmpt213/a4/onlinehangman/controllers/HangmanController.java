@@ -23,7 +23,7 @@ public class HangmanController {
 
     //works like a constructor, but wait until dependency injection is done, so it's more like a setup
     @PostConstruct
-    public void hangmanControllerInit() {
+    private void hangmanControllerInit() {
         promptMessage = new Message("Initializing...");
     }
 
@@ -38,7 +38,7 @@ public class HangmanController {
     }
 
     @GetMapping("/welcome")
-    public String showWelcomePage() {
+    private String showWelcomePage() {
 
         // create a new game whenever player is on the welcome page
         game = new Game();
@@ -50,7 +50,7 @@ public class HangmanController {
     }
 
     @PostMapping("/game")
-    public String showGamePage(@ModelAttribute("game") Game currentGame, Model model) {
+    private String showGamePage(@ModelAttribute("game") Game currentGame, Model model) {
         List<String> wordRevealed = new ArrayList<>();
         // player is on the welcome page
         if (game.getId() == 0) {
@@ -64,10 +64,10 @@ public class HangmanController {
         }
     }
 
-    public String updateGamePage(@ModelAttribute("game") Game currentGame, Model model, List<String> wordRevealed) {
+    private String updateGamePage(@ModelAttribute("game") Game currentGame, Model model, List<String> wordRevealed) {
         String characterEntered = currentGame.getCharacterEntered();
         game.setCharacterEntered(characterEntered);
-        System.out.println("character entered " + characterEntered);
+        System.out.println("character entered " + characterEntered + "fdlnfkdn");
         game.updateGuess(characterEntered);
         wordRevealed = game.getCharacterList(characterEntered);
         addModelAttributes(model, wordRevealed);
@@ -80,7 +80,7 @@ public class HangmanController {
         return "game";
     }
 
-    public void addModelAttributes(Model model, List<String> wordRevealed) {
+    private void addModelAttributes(Model model, List<String> wordRevealed) {
         model.addAttribute("game", game);
         model.addAttribute("list", wordRevealed);
     }
