@@ -36,9 +36,10 @@ public class HangmanController {
     }
 
     @GetMapping("/welcome")
-    private String showWelcomePage() {
+    private String showWelcomePage(Model model) {
 
-        // create a new game whenever player is on the welcome page
+        promptMessage.setMessage("Welcome to the Hangman game");
+        model.addAttribute("promptMessage", promptMessage);      // create a new game whenever player is on the welcome page
         game = new Game();
         game.setStatus("Active");
         game.setRandomWordToBeGuessed();
