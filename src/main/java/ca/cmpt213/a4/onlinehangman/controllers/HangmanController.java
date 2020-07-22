@@ -45,6 +45,7 @@ public class HangmanController {
     public String showGamePage(Model model) {
         Game game = new Game();
         game.setId(nextId.incrementAndGet());
+        game.setStatus("Active");
         model.addAttribute("game", game);
         gameList.add(game);
         return "game";

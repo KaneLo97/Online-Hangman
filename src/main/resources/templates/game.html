@@ -6,11 +6,10 @@
     <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
-<img th:src="@{/images/SFULogo.jpg}" />
-<p>Hello World!</p>
-<h1 th:text=" ${game.id}"></h1>
+    <h1 th:text="'Game ' + ${game.id} + ' Page'"> header message</h1>
+    <p th:text="'Status: ' + ${game.status}">game status</p>
 
-<a th:href="@{/welcome}" > Back to Welcome page </a>
+    <a th:href="@{/welcome}" > Back to Welcome page </a>
 
 </body>
 </html>
