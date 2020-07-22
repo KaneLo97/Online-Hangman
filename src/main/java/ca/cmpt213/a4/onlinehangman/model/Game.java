@@ -44,4 +44,8 @@ public class Game {
         this.numberOfIncorrectGuesses = numberOfIncorrectGuesses;
     }
 
+    public int getLengthOfWordToBeGuessed(String word) {
+        return word.length();
+    }
+
 }

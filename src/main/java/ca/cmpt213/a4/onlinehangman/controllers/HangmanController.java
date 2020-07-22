@@ -46,8 +46,11 @@ public class HangmanController {
         Game game = new Game();
         game.setId(nextId.incrementAndGet());
         game.setStatus("Active");
+        game.setWordToBeGuessed("Hello");
         model.addAttribute("game", game);
         gameList.add(game);
         return "game";
     }
+
+
 }
