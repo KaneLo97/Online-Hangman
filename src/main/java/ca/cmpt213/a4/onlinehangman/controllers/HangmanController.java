@@ -72,22 +72,24 @@ public class HangmanController {
                 if (gameSearched.getId() == gameId) {
                     game = (Game)gameSearched.clone();
                     addModelAttributes(model, game.getRevealedList());
+                    if (game.getStatus() == "Won" || game.getStatus() == "Lost") {
+                        return "gameover";
+                    }
                     return "game";
                 }
             }
             GameNotFoundException gameNotFound = new GameNotFoundException("Game is not found");
+        } catch (GameNotFoundException gameNotFound){
             throw gameNotFound;
-        } catch (GameNotFoundException gameNotFound) {
-            promptMessage.setMessage("Game is not found");
-            model.addAttribute("promptMessage", promptMessage);
-            return "gamenotfound";
         }
+        promptMessage.setMessage("Game is not found");
+        model.addAttribute("promptMessage", promptMessage);
+        return "gamenotfound";
     }
 
     private String updateGamePage(@ModelAttribute("game") Game currentGame, Model model, List<String> wordRevealed) {
         String characterEntered = currentGame.getCharacterEntered();
         game.setCharacterEntered(characterEntered);
-        System.out.println("character entered " + characterEntered + "fdlnfkdn");
         game.updateGuess(characterEntered);
         wordRevealed = game.getCharacterList(characterEntered);
         addModelAttributes(model, wordRevealed);
@@ -104,6 +106,4 @@ public class HangmanController {
         model.addAttribute("game", game);
         model.addAttribute("list", wordRevealed);
     }
-
-
 }
