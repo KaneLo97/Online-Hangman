@@ -11,7 +11,7 @@
     <!-- for testing -->
     <p th:text="${game.wordToBeGuessed}"></p>
     <p> Progress: <span th:each="s: ${list}" th:text =${s}> </span></p>
-    <p th:text="'You have made ' + ${game.totalNumberOfGuesses} + ' ,out of which you have made ' + ${game.numberOfIncorrectGuesses} + '.'"></p>
+    <p th:text="'You have made ' + ${game.totalNumberOfGuesses} + ' ,out of which you have made ' + ${game.numberOfIncorrectGuesses} + ' incorrect guess(es).'"></p>
     <form action="#" th:action="@{/game}" th:object="${game}" method="POST">
         <label>Your guess</label>
         <input type="text" th:field="*{characterEntered}"/>
