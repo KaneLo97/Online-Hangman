@@ -152,10 +152,6 @@ public class Game {
 
     }
 
-    /**
-     * Creates a new copy of superhero
-     * @return new superhero copied
-     */
     @Override
     public Object clone() {
         Game clonedGame = new Game(this.id, this.wordToBeGuessed, this.status, this.numberOfIncorrectGuesses, this.characterEntered, this.totalNumberOfGuesses, this.revealedList);
