@@ -19,10 +19,20 @@ public class Game {
     public Game() {
         this.id = 0;
         this.wordToBeGuessed = "";
+        this.status = "";
         this.numberOfIncorrectGuesses = 0;
         this.characterEntered= "";
-        this.status = "";
         this.totalNumberOfGuesses = 0;
+    }
+
+    public Game(long id, String wordToBeGuessed, String status, int numberOfIncorrectGuessed, String characterEntered, int totalNumberOfGuesses, List<String> revealedList) {
+        this.id = id;
+        this.wordToBeGuessed = wordToBeGuessed;
+        this.status = status;
+        this.numberOfIncorrectGuesses = numberOfIncorrectGuessed;
+        this.characterEntered= characterEntered;
+        this.totalNumberOfGuesses = totalNumberOfGuesses;
+        this.revealedList = revealedList;
     }
 
     public long getId() {
@@ -47,6 +57,10 @@ public class Game {
 
     public int getTotalNumberOfGuesses() {
         return this.totalNumberOfGuesses;
+    }
+
+    public List<String> getRevealedList() {
+        return revealedList;
     }
 
     public void setId(long id) {
@@ -136,6 +150,16 @@ public class Game {
            System.out.println("It is not possible to read the commonWords.txt.");
         }
 
+    }
+
+    /**
+     * Creates a new copy of superhero
+     * @return new superhero copied
+     */
+    @Override
+    public Object clone() {
+        Game clonedGame = new Game(this.id, this.wordToBeGuessed, this.status, this.numberOfIncorrectGuesses, this.characterEntered, this.totalNumberOfGuesses, this.revealedList);
+        return clonedGame;
     }
 
 }

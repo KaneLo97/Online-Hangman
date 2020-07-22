@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.PermitAll;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -61,6 +62,25 @@ public class HangmanController {
             return "game";
         } else { // player has entered a character on the game page
             return updateGamePage(currentGame, model, wordRevealed);
+        }
+    }
+
+    @GetMapping("/game/{id}")
+    private String showGameIdPage(@PathVariable("id") long gameId, Model model) {
+        try {
+            for (Game gameSearched : gameList) {
+                if (gameSearched.getId() == gameId) {
+                    game = (Game)gameSearched.clone();
+                    addModelAttributes(model, game.getRevealedList());
+                    return "game";
+                }
+            }
+            GameNotFoundException gameNotFound = new GameNotFoundException("Game is not found");
+            throw gameNotFound;
+        } catch (GameNotFoundException gameNotFound) {
+            promptMessage.setMessage("Game is not found");
+            model.addAttribute("promptMessage", promptMessage);
+            return "gamenotfound";
         }
     }
 

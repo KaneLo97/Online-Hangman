@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>CMPT 213 Online Hangman Game</title>
+</head>
+<body>
+<h1 th:text="${promptMessage.message}"> header message</h1>
+
+<a th:href="@{/welcome}" > Back to Welcome page </a>
+
+</body>
+</html>
