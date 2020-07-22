@@ -16,7 +16,7 @@ input[type=text] {
 input[type=submit] {
     background: #2196F3;
     color: white;
-    border-radius: 1em;
+    border-radius: 0.5em;
     cursor: pointer;
 }
 
