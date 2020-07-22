@@ -10,7 +10,13 @@
     <p th:text="'Status: ' + ${game.status}">game status</p>
     <!-- for testing -->
     <p th:text="${game.wordToBeGuessed}"></p>
-    <p> Progress: <span th:each="i : ${#numbers.sequence(1, #strings.length(game.wordToBeGuessed))}" th:text="'_ '"> </span></p><br>
+    <p> Progress: <span th:each="s: ${list}" th:text =${s}> </span></p>
+    <p th:text="'You have made ' + ${game.totalNumberOfGuesses} + ' ,out of which you have made ' + ${game.numberOfIncorrectGuesses} + '.'"></p>
+    <form action="#" th:action="@{/game/handle}" th:object="${game}" method="POST">
+        <label>Your guess</label>
+        <input type="text" th:field="*{characterEntered}"/>
+        <input type="submit" value="Game"/>
+    </form>
 
     <a th:href="@{/welcome}" > Back to Welcome page </a>
 
