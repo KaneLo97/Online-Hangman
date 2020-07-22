@@ -12,6 +12,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.jar.Attributes;
 
 @Controller
 public class HangmanController {
@@ -39,34 +40,37 @@ public class HangmanController {
     @GetMapping("/welcome")
     public String showWelcomePage() {
 
+        // create a new game whenever player is on the welcome page
+        game = new Game();
+        game.setStatus("Active");
+        game.setWordToBeGuessed("Hello");
+
         // take the user to welcome.html
         return "welcome";
     }
 
     @PostMapping("/game")
-    public String showGamePage(Model model) {
+    public String showGamePage(@ModelAttribute("game") Game currentGame, Model model) {
         List<String> wordRevealed = new ArrayList<>();
-        game = new Game();
-        game.setId(nextId.incrementAndGet());
-        game.setStatus("Active");
-        game.setWordToBeGuessed("Hello");
-        model.addAttribute("game", game);
-        wordRevealed = game.populateInitialRevealedList();
-        model.addAttribute("list", wordRevealed);
-        gameList.add(game);
-        return "game";
+        // player is on the welcome page
+        if (game.getId() == 0) {
+            game.setId(nextId.incrementAndGet());
+            wordRevealed = game.populateInitialRevealedList();
+            addModelAttributes(model, wordRevealed);
+            gameList.add(game);
+            return "game";
+        } else { // player has entered a character on the game page
+            return updateGamePage(currentGame, model, wordRevealed);
+        }
     }
 
-    @PostMapping("/game/handle")
-    public String showPage(@ModelAttribute("game") Game game1, Model model) {
-        List<String> wordRevealed = new ArrayList<>();
-        String characterEntered = game1.getCharacterEntered();
+    public String updateGamePage(@ModelAttribute("game") Game currentGame, Model model, List<String> wordRevealed) {
+        String characterEntered = currentGame.getCharacterEntered();
         game.setCharacterEntered(characterEntered);
-        System.out.println("dsfkjbdfjb" + characterEntered);
+        System.out.println("character entered " + characterEntered);
         game.updateGuess(characterEntered);
-        model.addAttribute("game", game);
         wordRevealed = game.getCharacterList(characterEntered);
-        model.addAttribute("list", wordRevealed);
+        addModelAttributes(model, wordRevealed);
         game.getUpdatedGameStatus();
 
         if (game.getStatus() == "Lost" || game.getStatus() == "Won") {
@@ -74,6 +78,11 @@ public class HangmanController {
         }
 
         return "game";
+    }
+
+    public void addModelAttributes(Model model, List<String> wordRevealed) {
+        model.addAttribute("game", game);
+        model.addAttribute("list", wordRevealed);
     }
 
 
