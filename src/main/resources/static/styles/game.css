@@ -1,6 +1,10 @@
+body {
+    background-image: url("/images/hangman.png");
+}
+
 .container {
     max-width: 50em;
-    background-color: white;
+    background-color: #F5F5F5;
     display: flex;
     flex-direction: column;
     margin: 5em auto;
@@ -12,3 +16,12 @@
 .second_header {
     text-align: center;
 }
+
+.status {
+    font-weight: bold;
+    color: green;
+}
+
+ a {
+    margin: 1em;
+ }

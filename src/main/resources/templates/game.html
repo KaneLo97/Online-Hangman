@@ -8,21 +8,22 @@
 </head>
 <body>
     <p><h1 class = "header"> HANGMAN GAME</h1></p>
-    <h1 class = "second_header" th:text = "'Game ' + ${game.id} + ' Page'"> header message</h1>
     <div class = "container">
-        <p th:text = "'Status: ' + ${game.status}">game status</p>
+        <h1 class = "second_header" th:text = "'Game ' + ${game.id} + ' Page'"> header message</h1>
+        <h3>Status:<span class = "status" th:text = "' ' + ${game.status}">game status</span></h3>
         <!-- for testing -->
-        <p th:text="${game.wordToBeGuessed}"></p>
-        <p> Progress: <span th:each="s: ${list}" th:text =${s}> </span></p>
-        <p th:text="'You have made ' + ${game.totalNumberOfGuesses} + ', out of which you have made ' + ${game.numberOfIncorrectGuesses} + ' incorrect guess(es).'"></p>
-        <form action="#" th:action="@{/game}" th:object="${game}" method="POST">
-            <label>Your guess</label>
-            <input type="text" th:field="*{characterEntered}" maxlength="1"/>
-            <input type="submit" value="Make a guess"/>
+        <p th:text = "${game.wordToBeGuessed}"></p>
+        <p><b>Progress: </b><span th:each="s: ${list}" th:text =${s}> </span></p>
+        <p>You have made <b><span th:text = "' ' + ${game.totalNumberOfGuesses} + ' '"></span></b> guess(es), out of which you have made
+            <b><span th:text ="${game.numberOfIncorrectGuesses}"></span></b> incorrect guess(es).</p>
+        <form action = "#" th:action = "@{/game}" th:object = "${game}" method = "POST">
+            <label>Your guess:</label>
+            <input type = "text" th:field = "*{characterEntered}" maxlength="1"/>
+            <input type = "submit" value = "Make a guess"/>
         </form>
         <br>
 
-        <a th:href="@{/welcome}" > Back to Welcome page </a>
+        <a th:href = "@{/welcome}" > Back to Welcome page </a>
     </div>
 
 </body>
