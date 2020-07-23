@@ -2,6 +2,7 @@ package ca.cmpt213.a4.onlinehangman.controllers;
 
 import ca.cmpt213.a4.onlinehangman.model.Game;
 import ca.cmpt213.a4.onlinehangman.model.Message;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +38,9 @@ public class HangmanController {
 
     @GetMapping("/welcome")
     private String showWelcomePage(Model model) {
-
         promptMessage.setMessage("Welcome to the Hangman game");
-        model.addAttribute("promptMessage", promptMessage);      // create a new game whenever player is on the welcome page
+        model.addAttribute("promptMessage", promptMessage);
+        // create a new game whenever player is on the welcome page
         game = new Game();
         game.setStatus("Active");
         game.setRandomWordToBeGuessed();
@@ -65,24 +66,19 @@ public class HangmanController {
 
     @GetMapping("/game/{id}")
     private String showGameIdPage(@PathVariable("id") long gameId, Model model) {
-        try {
-            for (Game gameSearched : gameList) {
-                if (gameSearched.getId() == gameId) {
-                    game = (Game)gameSearched.clone();
-                    addModelAttributes(model, game.getRevealedList());
-                    if (game.getStatus() == "Won" || game.getStatus() == "Lost") {
-                        return "gameover";
-                    }
+        for (Game gameSearched : gameList) {
+            if (gameSearched.getId() == gameId) {
+                game = (Game)gameSearched.clone();
+                addModelAttributes(model, game.getRevealedList());
+                if (game.getStatus() == "Won" || game.getStatus() == "Lost") {
+                    return "gameover";
+                }
                     return "game";
                 }
             }
-            GameNotFoundException gameNotFound = new GameNotFoundException("Game is not found");
-        } catch (GameNotFoundException gameNotFound){
-            throw gameNotFound;
-        }
-        promptMessage.setMessage("Game is not found");
-        model.addAttribute("promptMessage", promptMessage);
-        return "gamenotfound";
+        throw new GameNotFoundException("Game is not found");
+
+
     }
 
     private String updateGamePage(@ModelAttribute("game") Game currentGame, Model model, List<String> wordRevealed) {
@@ -103,5 +99,15 @@ public class HangmanController {
     private void addModelAttributes(Model model, List<String> wordRevealed) {
         model.addAttribute("game", game);
         model.addAttribute("list", wordRevealed);
+    }
+
+    // Create Exception Handle
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(GameNotFoundException.class)
+    public String handleExceptionHandler(Model model) {
+        promptMessage.setMessage("Game is not found");
+        model.addAttribute("promptMessage", promptMessage);
+        return "gamenotfound";
+
     }
 }
