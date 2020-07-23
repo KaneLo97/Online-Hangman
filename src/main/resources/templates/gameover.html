@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <link th:href="@{/styles/game.css}" rel="stylesheet" />
+    <link th:href="@{/styles/gameover.css}" rel="stylesheet" />
     <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
-<h1 th:text="'Game ' + ${game.status}"> header message</h1>
-
-<a th:href="@{/welcome}" > Back to Welcome page </a>
+    <h1 class = "header"> HANGMAN GAME </h1>
+    <div class = "container">
+        <h1 class="completed"> This game is completed. </h1>
+        <h1 th:text="'Game ' + ${game.status}"> header message</h1>
+        <a th:href="@{/welcome}" > Back to Welcome page </a>
+    </div>
 
 </body>
 </html>

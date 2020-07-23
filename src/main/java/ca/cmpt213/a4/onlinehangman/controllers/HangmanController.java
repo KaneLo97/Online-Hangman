@@ -76,9 +76,8 @@ public class HangmanController {
                     return "game";
                 }
             }
+        // game id is not found
         throw new GameNotFoundException("Game is not found");
-
-
     }
 
     private String updateGamePage(@ModelAttribute("game") Game currentGame, Model model, List<String> wordRevealed) {
@@ -105,7 +104,7 @@ public class HangmanController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(GameNotFoundException.class)
     public String handleExceptionHandler(Model model) {
-        promptMessage.setMessage("Game is not found");
+        promptMessage.setMessage("Game id does not exists. Game is not found.");
         model.addAttribute("promptMessage", promptMessage);
         return "gamenotfound";
 
