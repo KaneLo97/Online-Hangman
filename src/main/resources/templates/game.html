@@ -13,7 +13,7 @@
         <h3>Status:<span class = "status" th:text = "' ' + ${game.status}">game status</span></h3>
         <!-- for testing -->
         <p th:text = "${game.wordToBeGuessed}"></p>
-        <p><b>Progress: </b><span th:each="s: ${list}" th:text =${s}> </span></p>
+        <p><b>Progress: </b><span th:each="s: ${word}" th:text =${s}> </span></p>
         <p>You have made <b><span th:text = "' ' + ${game.totalNumberOfGuesses} + ' '"></span></b> guess(es), out of which you have made
             <b><span th:text ="${game.numberOfIncorrectGuesses}"></span></b> incorrect guess(es).</p>
         <form action = "#" th:action = "@{/game}" th:object = "${game}" method = "POST">

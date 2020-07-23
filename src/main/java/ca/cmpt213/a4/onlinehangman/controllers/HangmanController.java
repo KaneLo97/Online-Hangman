@@ -97,7 +97,7 @@ public class HangmanController {
 
     private void addModelAttributes(Model model, List<String> wordRevealed) {
         model.addAttribute("game", game);
-        model.addAttribute("list", wordRevealed);
+        model.addAttribute("word", wordRevealed);
     }
 
     // Create Exception Handle
