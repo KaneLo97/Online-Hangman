@@ -25,3 +25,13 @@ body {
  a {
     margin: 1em;
  }
+
+ .play_container {
+    background-color: #007099;
+    padding: 1em 2em;
+    margin: 1em;
+ }
+
+ #progress, #revealed {
+    color: white;
+ }
