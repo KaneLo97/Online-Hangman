@@ -96,7 +96,7 @@ public class Game {
     }
 
     private boolean isCorrectCharacter(String characterEntered) {
-        if (!characterEntered.equals("") && wordToBeGuessed.indexOf(characterEntered.charAt(0)) != -1) {
+        if (wordToBeGuessed.indexOf(characterEntered.charAt(0)) != -1) {
             return true;
         } else {
             return false;
@@ -104,9 +104,11 @@ public class Game {
     }
 
     public void updateGuess(String characterEntered) {
-        this.totalNumberOfGuesses++;
-        if (!isCorrectCharacter(characterEntered)) {
-            this.numberOfIncorrectGuesses++;
+        if (!characterEntered.equals("")) {
+            this.totalNumberOfGuesses++;
+            if (!isCorrectCharacter(characterEntered)) {
+                this.numberOfIncorrectGuesses++;
+            }
         }
     }
 
