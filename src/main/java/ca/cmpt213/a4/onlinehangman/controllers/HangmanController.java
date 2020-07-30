@@ -5,7 +5,12 @@ import ca.cmpt213.a4.onlinehangman.model.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.annotation.PostConstruct;
 
@@ -18,22 +23,13 @@ public class HangmanController {
     private Message promptMessage; //a resusable String object to display a prompt message at the screen
     private AtomicLong nextId = new AtomicLong();
     private ArrayList<Game> gameList = new ArrayList<>();
+    private List<String> wordRevealed = new ArrayList<>();
     private Game game;
 
     //works like a constructor, but wait until dependency injection is done, so it's more like a setup
     @PostConstruct
     private void hangmanControllerInit() {
         promptMessage = new Message("Initializing...");
-    }
-
-    @GetMapping("/helloworld")
-    public String showHelloworldPage(Model model) {
-
-        promptMessage.setMessage("You are at the helloworld page!");
-        model.addAttribute("promptMessage", promptMessage);
-
-        // take the user to helloworld.html
-        return "helloworld";
     }
 
     @GetMapping("/welcome")
@@ -49,18 +45,24 @@ public class HangmanController {
         return "welcome";
     }
 
+    @GetMapping("/game")
+    private String showCurrentGamePage(Model model) {
+        addModelAttributes(model);
+        return "game";
+    }
+
     @PostMapping("/game")
     private String showGamePage(@ModelAttribute("game") Game currentGame, Model model) {
-        List<String> wordRevealed = new ArrayList<>();
+        wordRevealed = new ArrayList<>();
         // player is on the welcome page
         if (game.getId() == 0) {
             game.setId(nextId.incrementAndGet());
             wordRevealed = game.populateInitialRevealedList();
-            addModelAttributes(model, wordRevealed);
+            addModelAttributes(model);
             gameList.add(game);
             return "game";
         } else { // player has entered a character on the game page
-            return updateGamePage(currentGame, model, wordRevealed);
+            return updateGamePage(currentGame, model);
         }
     }
 
@@ -69,7 +71,8 @@ public class HangmanController {
         for (Game gameSearched : gameList) {
             if (gameSearched.getId() == gameId) {
                 game = (Game)gameSearched.clone();
-                addModelAttributes(model, game.getRevealedList());
+                wordRevealed = game.getRevealedList();
+                addModelAttributes(model);
                 if (game.getStatus() == "Won" || game.getStatus() == "Lost") {
                     return "gameover";
                 }
@@ -80,12 +83,12 @@ public class HangmanController {
         throw new GameNotFoundException("Game is not found");
     }
 
-    private String updateGamePage(@ModelAttribute("game") Game currentGame, Model model, List<String> wordRevealed) {
+    private String updateGamePage(@ModelAttribute("game") Game currentGame, Model model) {
         String characterEntered = currentGame.getCharacterEntered();
         game.setCharacterEntered(characterEntered);
         game.updateGuess(characterEntered);
         wordRevealed = game.getCharacterList(characterEntered);
-        addModelAttributes(model, wordRevealed);
+        addModelAttributes(model);
         game.getUpdatedGameStatus();
 
         if (game.getStatus() == "Lost" || game.getStatus() == "Won") {
@@ -95,7 +98,7 @@ public class HangmanController {
         return "game";
     }
 
-    private void addModelAttributes(Model model, List<String> wordRevealed) {
+    private void addModelAttributes(Model model) {
         model.addAttribute("game", game);
         model.addAttribute("word", wordRevealed);
     }
