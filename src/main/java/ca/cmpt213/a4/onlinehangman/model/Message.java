@@ -1,5 +1,8 @@
 package ca.cmpt213.a4.onlinehangman.model;
 
+/**
+ * A message class used as the header in the welcome page and to show the status of the game
+ */
 public class Message {
     private String message;
 
@@ -18,4 +21,4 @@ public class Message {
     public void setMessage(String message) {
         this.message = message;
     }
-}
+}// Message.java

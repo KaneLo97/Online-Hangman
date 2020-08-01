@@ -11,7 +11,7 @@
     <h1 class = "header"> HANGMAN GAME </h1>
     <div class = "container">
         <h1 class="completed"> This game is completed. </h1>
-        <h1 th:text="'Game ' + ${game.status}"> header message</h1>
+        <h1 th:text="'Game ' + ${game.id} + ' ' + ${promptMessage.message}"> header message</h1>
         <p> The word to be guessed was <b th:text="${game.wordToBeGuessed} + '.'"></b></p>
         <a th:href="@{/welcome}" > Back to Welcome page </a>
     </div>
