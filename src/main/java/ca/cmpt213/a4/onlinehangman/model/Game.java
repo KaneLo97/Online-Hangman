@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * An model class where the system represents the game data independent of the user interface,
+ * A model class where the system represents the game data independent of the user interface,
  * by holding information about the game, including the random word being chosen for the game and the word being revealed partly or completely
  * and checking if the guess (character entered) is correct or not
  */
@@ -19,7 +19,7 @@ public class Game {
     private int totalNumberOfGuesses;
     private String characterEntered;
     private List<String> revealedList = new ArrayList<>();
-    private static final int MAX_NUMBER_INCORRECT_GUESSES = 1;
+    private static final int MAX_NUMBER_INCORRECT_GUESSES = 7;
 
     /**
      * default constructor

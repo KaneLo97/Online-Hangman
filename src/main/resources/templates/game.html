@@ -11,8 +11,6 @@
     <div class = "container">
         <h1 class = "second_header" th:text = "'Game ' + ${game.id} + ' Page'"> header message</h1>
         <h3>Status:<span class = "status" th:text = "' ' + ${promptMessage.message}">game status</span></h3>
-        <!-- for testing -->
-        <p th:text = "${game.wordToBeGuessed}"></p>
         <div class = "play_container">
             <p><b id = "progress">Progress: </b><span id = "revealed" th:each="s: ${word}" th:text ="${s}"> </span></p>
         </div>
